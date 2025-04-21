@@ -61,13 +61,17 @@ const Chats = () => {
               <div className="bg-gameverse-darker p-4 flex items-center gap-3 border-b border-gameverse-light">
                 <div className="w-10 h-10 rounded-full overflow-hidden">
                   <img
-                    src={users.find((u) => u.id === activeChat)?.avatar}
-                    alt={users.find((u) => u.id === activeChat)?.username}
+                    src={
+                      chats?.find((u) => u.id === activeChat)?.avatar === null
+                        ? "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop"
+                        : chats?.find((u) => u.id === activeChat)?.avatar
+                    }
+                    alt={chats?.find((u) => u.id === activeChat)?.login}
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <h3 className="text-white font-medium">
-                  {users.find((u) => u.id === activeChat)?.username}
+                  {chats?.find((u) => u.id === activeChat)?.login}
                 </h3>
               </div>
 
