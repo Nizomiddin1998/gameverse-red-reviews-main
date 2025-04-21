@@ -42,8 +42,8 @@ export default function useHooks() {
     (data: any) => request.post(ENDPOINTS.FAVORITES, data),
     {
       onSuccess: (res) => {
-        toast.success("Вы поставили лайк!");
         refetch();
+        toast.success("Вы поставили лайк!");
       },
       onError: (err: ErrorProps) => {
         toast.error(err.response?.data?.message || "Что-то пошло не так.");

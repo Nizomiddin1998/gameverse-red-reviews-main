@@ -80,11 +80,16 @@ const Games = () => {
                 </div>
               </div>
             </Link>
-            <button className="absolute top-3 right-3 bg-gameverse-darker p-2 rounded-full opacity-80 hover:opacity-100 transition-opacity">
+            <button
+              className={`absolute top-3 right-3  p-2 rounded-full opacity-80 hover:opacity-100 transition-opacity ${
+                game?.favourited ? "bg-red-500" : "bg-gameverse-darker"
+              }`}
+              onClick={() => handleFavorite(game?.id)}
+            >
               <Bookmark
                 className="text-white"
                 size={16}
-                onClick={() => handleFavorite(game?.id)}
+                // color="red"
               />
             </button>
           </div>

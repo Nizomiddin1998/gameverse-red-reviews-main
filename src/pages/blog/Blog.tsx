@@ -19,8 +19,6 @@ const Blog = () => {
   // Обработчики кликов по кнопкам лайка и дизлайка
   const handleLike = () => {
     mutate();
-
-    setHasLiked(true);
   };
 
   // const handleDislike = () => {
@@ -109,7 +107,7 @@ const Blog = () => {
         <div className="flex gap-6 justify-center mb-8">
           <button
             className={`flex items-center gap-2 py-2 px-4 rounded-full ${
-              hasLiked
+              blogInfo?.liked
                 ? "bg-gameverse-red text-white"
                 : "bg-gameverse-light text-white hover:bg-opacity-80"
             }`}
