@@ -23,7 +23,7 @@ const Profile = () => {
   const [about, setAbout] = useState(user.about);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [newAvatar, setNewAvatar] = useState<File | null>(null);
+  const [newAvatar, setNewAvatar] = useState("");
 
   // Состояние для активной вкладки
   const [activeTab, setActiveTab] = useState("favorites");
@@ -41,14 +41,14 @@ const Profile = () => {
     select: (res) => {
       return res?.data?.data;
     },
-    // onSuccess: (res) => {
-    //   setAbout(res?.info);
-    // },
+    onSuccess: (res) => {
+      setAbout(res?.info);
+    },
   });
 
   const { mutate } = useMutation(
     (data: any) =>
-      request.put(ENDPOINTS.USER, data, {
+      request.post(ENDPOINTS.USER, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -62,6 +62,14 @@ const Profile = () => {
       },
     }
   );
+
+  const handleChangeAvatar = () => {
+    if (!newAvatar) {
+      alert("Пожалуйста, укажите URL изображения!");
+      return;
+    }
+    setNewAvatar("");
+  };
 
   const handleSave = () => {
     if (newPassword !== confirmPassword) {
@@ -79,8 +87,6 @@ const Profile = () => {
     formData.append("avatar", newAvatar);
     mutate(formData);
   };
-
-  console.log(about, "about");
 
   return (
     <Layout>
@@ -114,19 +120,19 @@ const Profile = () => {
               <div className="grid grid-cols-3 gap-4 max-w-md">
                 <div className="profile-stat">
                   <span className="text-gameverse-red font-bold text-xl">
-                    {user.friends}
+                    {profile?.all_friends_count}
                   </span>
                   <span className="text-gray-300 text-sm">Друзей</span>
                 </div>
                 <div className="profile-stat">
                   <span className="text-gameverse-red font-bold text-xl">
-                    {user.blogs}
+                    {profile?.liked_blogs_count}
                   </span>
                   <span className="text-gray-300 text-sm">Блогов</span>
                 </div>
                 <div className="profile-stat">
                   <span className="text-gameverse-red font-bold text-xl">
-                    {user.reviews}
+                    {profile?.reviews_count}
                   </span>
                   <span className="text-gray-300 text-sm">Рецензий</span>
                 </div>
@@ -176,14 +182,16 @@ const Profile = () => {
           <div>
             <h3 className="text-white font-medium mb-2">Смена аватара</h3>
             <div className="space-y-3">
-              {/* <input
+              <input
                 type="text"
                 placeholder="URL изображения для аватара"
                 className="custom-input"
                 value={newAvatar}
                 onChange={(e) => setNewAvatar(e.target.value)}
-              /> */}
-              <ImageUpload avatar={newAvatar} setAvatar={setNewAvatar} />
+              />
+              <button className="custom-button" onClick={handleChangeAvatar}>
+                Сменить аватар
+              </button>
             </div>
             <button className="custom-button mt-3" onClick={handleSave}>
               Сохранить изменения
