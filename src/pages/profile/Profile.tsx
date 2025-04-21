@@ -1,20 +1,23 @@
 import { useState } from "react";
-import Layout from "../components/Layout";
-import { users, games, blogs, reviews } from "../data/mockData";
-import { useAuth } from "../contexts/AuthContext";
+import Layout from "../../components/Layout";
+import { users, games, blogs, reviews } from "../../data/mockData";
+import { useAuth } from "../../contexts/AuthContext";
 import { LogOut } from "lucide-react";
-import { Button } from "../components/ui/button";
+import { Button } from "../../components/ui/button";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { REACT_QUERY_KEYS } from "@/constants/react-query-keys";
 import { request } from "@/shared/api/requests";
 import { ENDPOINTS } from "@/shared/endpoints";
-import { ImageUpload } from "@/components/upload";
 import { ErrorProps } from "@/types/error";
-import { toast } from "../components/ui/sonner";
+import { toast } from "../../components/ui/sonner";
+import { usePage } from "./usePage";
+import dayjs from "dayjs";
 
+const baseURL = import.meta.env.VITE_API_IMAGE_URL;
 // Страница профиля пользователя
 const Profile = () => {
   const { logout } = useAuth();
+  const { reviews, myBlogs, favouriteGames } = usePage();
 
   // Берем первого пользователя из моковых данных для примера
   const user = users[0];
@@ -27,13 +30,6 @@ const Profile = () => {
 
   // Состояние для активной вкладки
   const [activeTab, setActiveTab] = useState("favorites");
-
-  // Моковые данные для избранных игр, блогов и рецензий
-  const favoriteGames = games.slice(0, 3);
-  const userBlogs = blogs.filter((blog) => blog.author === user.username);
-  const userReviews = reviews.filter(
-    (review) => review.username === user.username
-  );
 
   const { data: profile = null } = useQuery({
     queryKey: [REACT_QUERY_KEYS.VIEW_MY_PROFILE],
@@ -87,6 +83,8 @@ const Profile = () => {
     formData.append("avatar", newAvatar);
     mutate(formData);
   };
+
+  console.log(favouriteGames, "favouriteGames");
 
   return (
     <Layout>
@@ -230,27 +228,27 @@ const Profile = () => {
             {/* Содержимо�� вкладки "Избранные игры" */}
             {activeTab === "favorites" && (
               <div>
-                {favoriteGames.length > 0 ? (
+                {favouriteGames?.length > 0 ? (
                   <div className="space-y-4">
-                    {favoriteGames.map((game) => (
+                    {favouriteGames?.map((game) => (
                       <div
-                        key={game.id}
+                        key={game?.id}
                         className="flex bg-gameverse-darker p-3 rounded-lg"
                       >
                         <div className="w-16 h-16 rounded overflow-hidden mr-4">
                           <img
-                            src={game.image}
-                            alt={game.title}
+                            src={baseURL + game?.game?.photo}
+                            alt={game?.game?.name}
                             className="w-full h-full object-cover"
                           />
                         </div>
                         <div className="flex-grow">
                           <h3 className="font-medium text-white">
-                            {game.title}
+                            {game?.game?.name}
                           </h3>
                           <div className="flex justify-between text-sm text-gray-400 mt-1">
-                            <span>{game.releaseYear}</span>
-                            <span>{game.genre}</span>
+                            <span>{game?.game?.year}</span>
+                            <span>{game.game?.category?.name}</span>
                           </div>
                         </div>
                       </div>
@@ -267,26 +265,26 @@ const Profile = () => {
             {/* Содержимое вкладки "Мои блоги" */}
             {activeTab === "blogs" && (
               <div>
-                {userBlogs.length > 0 ? (
+                {myBlogs?.length > 0 ? (
                   <div className="space-y-4">
-                    {userBlogs.map((blog) => (
+                    {myBlogs?.map((blog: any) => (
                       <div
-                        key={blog.id}
+                        key={blog?.id}
                         className="flex bg-gameverse-darker p-3 rounded-lg"
                       >
                         <div className="w-16 h-16 rounded overflow-hidden mr-4">
                           <img
-                            src={blog.image}
-                            alt={blog.title}
+                            src={blog?.image}
+                            alt={blog?.name}
                             className="w-full h-full object-cover"
                           />
                         </div>
                         <div className="flex-grow">
                           <h3 className="font-medium text-white">
-                            {blog.title}
+                            {blog?.info}
                           </h3>
                           <div className="text-sm text-gray-400 mt-1">
-                            <span>{blog.date}</span>
+                            <span>{dayjs(blog.date).format("DD.MM.YYYY")}</span>
                           </div>
                         </div>
                       </div>
@@ -303,22 +301,21 @@ const Profile = () => {
             {/* Содержимое вкладки "Мои рецензии" */}
             {activeTab === "reviews" && (
               <div>
-                {userReviews.length > 0 ? (
+                {reviews?.length > 0 ? (
                   <div className="space-y-4">
-                    {userReviews.map((review) => {
-                      const game = games.find((g) => g.id === review.gameId);
+                    {reviews?.map((review) => {
                       return (
                         <div
-                          key={review.id}
+                          key={review?.id}
                           className="flex bg-gameverse-darker p-3 rounded-lg"
                         >
                           <div className="flex-grow">
                             <h3 className="font-medium text-white">
-                              {game?.title}
+                              {review?.game?.name}
                             </h3>
                             <div className="flex justify-between text-sm text-gray-400 mt-1">
-                              <span>Оценка: {review.rating}/5</span>
-                              <span>{game?.genre}</span>
+                              <span>Оценка: {review?.rate}/5</span>
+                              <span>{review?.genre}</span>
                             </div>
                           </div>
                         </div>

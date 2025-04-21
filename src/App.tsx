@@ -14,7 +14,7 @@ import Games from "./pages/games/Games";
 import Game from "./pages/game/Game";
 import Blogs from "./pages/blogs/Blogs";
 import Blog from "./pages/blog/Blog";
-import Profile from "./pages/Profile";
+import Profile from "./pages/profile/Profile";
 import Chats from "./pages/chat/Chats";
 import Friends from "./pages/Friends";
 import FAQ from "./pages/FAQ";
