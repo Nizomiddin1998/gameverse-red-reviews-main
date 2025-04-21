@@ -15,7 +15,7 @@ import Game from "./pages/game/Game";
 import Blogs from "./pages/Blogs";
 import Blog from "./pages/Blog";
 import Profile from "./pages/Profile";
-import Chats from "./pages/Chats";
+import Chats from "./pages/chat/Chats";
 import Friends from "./pages/Friends";
 import FAQ from "./pages/FAQ";
 import WriteReview from "./pages/write-riview/WriteReview";
