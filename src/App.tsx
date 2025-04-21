@@ -12,14 +12,14 @@ import About from "./pages/About";
 import Terms from "./pages/Terms";
 import Games from "./pages/games/Games";
 import Game from "./pages/game/Game";
-import Blogs from "./pages/Blogs";
-import Blog from "./pages/Blog";
+import Blogs from "./pages/blogs/Blogs";
+import Blog from "./pages/blog/Blog";
 import Profile from "./pages/Profile";
 import Chats from "./pages/Chats";
 import Friends from "./pages/Friends";
 import FAQ from "./pages/FAQ";
 import WriteReview from "./pages/write-riview/WriteReview";
-import WriteBlog from "./pages/WriteBlog";
+import WriteBlog from "./pages/write-blog/WriteBlog";
 import Upcoming from "./pages/Upcoming";
 import Auth from "./pages/auth/Auth"; // Добавляем импорт страницы авторизации
 import { queryClient } from "./configs/react-query";

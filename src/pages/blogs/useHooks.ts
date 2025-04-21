@@ -8,10 +8,10 @@ export default function useHooks() {
   const [selectedGenre, setSelectedGenre] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { data: games = null } = useQuery({
-    queryKey: [REACT_QUERY_KEYS.VIEW_GAMES_LIST, selectedGenre, searchTerm],
+  const { data: blogs = null } = useQuery({
+    queryKey: [REACT_QUERY_KEYS.VIEW_BLOGS_LIST, selectedGenre, searchTerm],
     queryFn: ({ signal }) =>
-      request(ENDPOINTS.GAMES, {
+      request(ENDPOINTS.BLOGS, {
         params: {
           category_id: selectedGenre || undefined,
           name: searchTerm || undefined,
@@ -37,11 +37,11 @@ export default function useHooks() {
     },
   });
   return {
-    games,
+    blogs,
+    category,
     selectedGenre,
     setSelectedGenre,
-    category,
-    setSearchTerm,
     searchTerm,
+    setSearchTerm,
   };
 }
