@@ -9,7 +9,7 @@ import useHooks from "./useHooks";
 const Blog = () => {
   const { id } = useParams<{ id: string }>();
   const blogId = parseInt(id || "0");
-  const { blogInfo,mutate } = useHooks();
+  const { blogInfo, mutate } = useHooks();
   // Находим блог по ID
 
   // Стейт для лайков и дизлайков
@@ -19,9 +19,8 @@ const Blog = () => {
   // Обработчики кликов по кнопкам лайка и дизлайка
   const handleLike = () => {
     mutate();
-   
-      setHasLiked(true);
 
+    setHasLiked(true);
   };
 
   // const handleDislike = () => {
