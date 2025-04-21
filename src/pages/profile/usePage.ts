@@ -26,8 +26,17 @@ export const usePage = () => {
     },
   });
 
+  const { data: my_reviews = [] } = useQuery({
+    queryKey: ["my_reviews"],
+    queryFn: () => request("reviews/my_reviews"),
+    select: (res) => {
+      return res.data?.data;
+    },
+  });
+
   return {
     reviews,
+    my_reviews,
     myBlogs,
     favouriteGames,
   };
