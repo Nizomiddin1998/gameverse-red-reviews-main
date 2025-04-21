@@ -1,0 +1,101 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 350 86% 50%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 350 86% 50%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --ring: 350 86% 50%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-gameverse-dark text-foreground;
+  }
+}
+
+/* Пользовательские стили для сайта GameVerse */
+.game-card {
+  @apply bg-gameverse-light rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105 shadow-lg;
+}
+
+.blog-card {
+  @apply bg-gameverse-light rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105 shadow-lg;
+}
+
+.nav-icon {
+  @apply text-white hover:text-gameverse-red transition-colors duration-200;
+}
+
+.section-title {
+  @apply text-2xl font-bold text-white mb-4 flex justify-between items-center;
+}
+
+.view-all {
+  @apply text-gameverse-red hover:text-white transition-colors text-sm font-semibold flex items-center gap-1;
+}
+
+.tab-button {
+  @apply px-4 py-2 font-medium rounded-t-lg;
+}
+
+.tab-button.active {
+  @apply bg-gameverse-light text-white;
+}
+
+.tab-button:not(.active) {
+  @apply bg-gameverse-darker text-gray-400 hover:text-white;
+}
+
+.custom-input {
+  @apply w-full bg-gameverse-darker border border-gameverse-light rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-gameverse-red;
+}
+
+.custom-button {
+  @apply bg-gameverse-red hover:bg-opacity-80 text-white font-bold py-2 px-4 rounded transition-colors;
+}
+
+.friend-card {
+  @apply bg-gameverse-light p-4 rounded-lg flex gap-4 items-start mb-4;
+}
+
+.profile-stat {
+  @apply flex flex-col items-center bg-gameverse-light p-3 rounded-lg;
+}
+
+.hero-overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-gameverse-dark via-transparent to-transparent;
+}
