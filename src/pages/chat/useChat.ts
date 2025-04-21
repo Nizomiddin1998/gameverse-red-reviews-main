@@ -43,7 +43,7 @@ export const useChat = () => {
     },
   });
 
-  const { data: activeMessages = [], refetch } = useQuery({
+  const { refetch } = useQuery({
     queryKey: ["chats", activeChat],
     queryFn: () => request<Message[]>(`chats/${activeChat}`),
     select: (res) => {
