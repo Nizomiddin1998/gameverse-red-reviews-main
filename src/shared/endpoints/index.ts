@@ -10,5 +10,4 @@ export const ENDPOINTS = {
   FAVORITES: "favorites",
   FRIENDS: "friends",
   FRIENDS_SUGGESTIONS: "friends/suggestions",
-  
 };
