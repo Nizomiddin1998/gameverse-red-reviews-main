@@ -8,4 +8,7 @@ export const ENDPOINTS = {
   REVIEWS: "reviews",
   LIKE_TOGGLE: "like-toggle",
   FAVORITES: "favorites",
+  FRIENDS: "friends",
+  FRIENDS_SUGGESTIONS: "friends/suggestions",
+  
 };

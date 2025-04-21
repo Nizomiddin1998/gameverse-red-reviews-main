@@ -16,7 +16,7 @@ import Blogs from "./pages/blogs/Blogs";
 import Blog from "./pages/blog/Blog";
 import Profile from "./pages/Profile";
 import Chats from "./pages/chat/Chats";
-import Friends from "./pages/Friends";
+import Friends from "./pages/friends/Friends";
 import FAQ from "./pages/FAQ";
 import WriteReview from "./pages/write-riview/WriteReview";
 import WriteBlog from "./pages/write-blog/WriteBlog";
