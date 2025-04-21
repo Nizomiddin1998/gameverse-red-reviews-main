@@ -9,46 +9,35 @@ import useHooks from "./useHooks";
 const Blog = () => {
   const { id } = useParams<{ id: string }>();
   const blogId = parseInt(id || "0");
-  const { blogInfo } = useHooks();
+  const { blogInfo,mutate } = useHooks();
   // Находим блог по ID
-  const blog = blogs.find((b) => b.id === blogId);
 
   // Стейт для лайков и дизлайков
-  const [likes, setLikes] = useState(blog?.likes || 0);
-  const [dislikes, setDislikes] = useState(blog?.dislikes || 0);
   const [hasLiked, setHasLiked] = useState(false);
   const [hasDisliked, setHasDisliked] = useState(false);
 
   // Обработчики кликов по кнопкам лайка и дизлайка
   const handleLike = () => {
-    if (hasLiked) {
-      setLikes((prev) => prev - 1);
-      setHasLiked(false);
-    } else {
-      setLikes((prev) => prev + 1);
+    mutate();
+   
       setHasLiked(true);
 
-      if (hasDisliked) {
-        setDislikes((prev) => prev - 1);
-        setHasDisliked(false);
-      }
-    }
   };
 
-  const handleDislike = () => {
-    if (hasDisliked) {
-      setDislikes((prev) => prev - 1);
-      setHasDisliked(false);
-    } else {
-      setDislikes((prev) => prev + 1);
-      setHasDisliked(true);
+  // const handleDislike = () => {
+  //   if (hasDisliked) {
+  //     setDislikes((prev) => prev - 1);
+  //     setHasDisliked(false);
+  //   } else {
+  //     setDislikes((prev) => prev + 1);
+  //     setHasDisliked(true);
 
-      if (hasLiked) {
-        setLikes((prev) => prev - 1);
-        setHasLiked(false);
-      }
-    }
-  };
+  //     if (hasLiked) {
+  //       setLikes((prev) => prev - 1);
+  //       setHasLiked(false);
+  //     }
+  //   }
+  // };
 
   // Если блог не найден, показываем сообщение об ошибке
   if (!blogInfo) {
@@ -128,10 +117,10 @@ const Blog = () => {
             onClick={handleLike}
           >
             <ThumbsUp size={18} />
-            <span>{likes}</span>
+            <span>{blogInfo?.countLike}</span>
           </button>
 
-          <button
+          {/* <button
             className={`flex items-center gap-2 py-2 px-4 rounded-full ${
               hasDisliked
                 ? "bg-gameverse-red text-white"
@@ -141,7 +130,7 @@ const Blog = () => {
           >
             <ThumbsDown size={18} />
             <span>{dislikes}</span>
-          </button>
+          </button> */}
         </div>
       </article>
     </Layout>

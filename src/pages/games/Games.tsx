@@ -14,6 +14,7 @@ const Games = () => {
     category,
     searchTerm,
     setSearchTerm,
+    handleFavorite,
   } = useHooks();
   // Фильтрация игр по поисковому запросу и жанру
 
@@ -80,7 +81,11 @@ const Games = () => {
               </div>
             </Link>
             <button className="absolute top-3 right-3 bg-gameverse-darker p-2 rounded-full opacity-80 hover:opacity-100 transition-opacity">
-              <Bookmark className="text-white" size={16} />
+              <Bookmark
+                className="text-white"
+                size={16}
+                onClick={() => handleFavorite(game?.id)}
+              />
             </button>
           </div>
         ))}

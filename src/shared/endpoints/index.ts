@@ -6,4 +6,6 @@ export const ENDPOINTS = {
   BLOGS: "blogs",
   CATIGORY: "categories",
   REVIEWS: "reviews",
+  LIKE_TOGGLE: "like-toggle",
+  FAVORITES: "favorites",
 };
