@@ -6,13 +6,12 @@ import { useParams } from "react-router-dom";
 
 export default function useHooks() {
   const { id } = useParams<{ id: string }>();
-  const { data: gameInfo = null } = useQuery({
-    queryKey: [REACT_QUERY_KEYS.VIEW_GAMES_LIST + id],
-    queryFn: () => request(ENDPOINTS.GAMES + `/${id}`),
-    select: (res) => {
+  const { data: blogInfo = null } = useQuery({
+    queryKey: [REACT_QUERY_KEYS.VIEW_BLOGS_LIST + id],
+    queryFn: () => request(ENDPOINTS.BLOGS + `/${id}`),
+    select: (res: any) => {
       return res?.data?.data;
     },
   });
-  
-  return { gameInfo };
+  return { blogInfo };
 }

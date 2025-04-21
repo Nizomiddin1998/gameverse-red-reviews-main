@@ -1,61 +1,31 @@
-
-import React, { useState } from 'react';
-import Layout from '../components/Layout';
-import { genres } from '../data/mockData';
+import Layout from "@/components/Layout";
+// import { genres } from "@/data/mockData";
+import useHooks from "./useHooks";
+// import { ImageUpload } from "@/components/upload";
 
 // Страница "Написать блог"
 const WriteBlog = () => {
-  const [title, setTitle] = useState('');
-  const [selectedGenre, setSelectedGenre] = useState('');
-  const [content, setContent] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
-  
+  // const [newAvatar, setNewAvatar] = useState<File | null>(null);
+
+  const {
+    category,
+    title,
+    setTitle,
+    selectedGenre,
+    setSelectedGenre,
+    content,
+    setContent,
+    imageUrl,
+    setImageUrl,
+    handleSubmit,
+  } = useHooks();
   // Обработка отправки формы
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!title.trim()) {
-      alert('Пожалуйста, укажите заголовок блога!');
-      return;
-    }
-    
-    if (!selectedGenre) {
-      alert('Пожалуйста, выберите жанр!');
-      return;
-    }
-    
-    if (!content.trim()) {
-      alert('Пожалуйста, напишите текст блога!');
-      return;
-    }
-    
-    if (!imageUrl.trim()) {
-      alert('Пожалуйста, укажите URL изображения для блога!');
-      return;
-    }
-    
-    // Здесь был бы API-запрос для публикации блога
-    console.log('Blog submitted:', {
-      title,
-      genre: selectedGenre,
-      content,
-      imageUrl
-    });
-    
-    // Очистка формы после отправки
-    setTitle('');
-    setSelectedGenre('');
-    setContent('');
-    setImageUrl('');
-    
-    alert('Блог успешно опубликован!');
-  };
 
   return (
     <Layout>
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold text-white mb-8">Написать блог</h1>
-        
+
         <div className="bg-gameverse-light p-6 rounded-lg">
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
@@ -72,7 +42,7 @@ const WriteBlog = () => {
                 required
               />
             </div>
-            
+
             <div className="mb-6">
               <label className="block text-gray-300 mb-2" htmlFor="genre">
                 Жанр
@@ -85,14 +55,18 @@ const WriteBlog = () => {
                 required
               >
                 <option value="">Выберите жанр</option>
-                {genres.slice(1).map(genre => ( // Пропускаем "Все жанры"
-                  <option key={genre} value={genre}>
-                    {genre}
-                  </option>
-                ))}
+                {category?.map(
+                  (
+                    genre // Пропускаем "Все жанры"
+                  ) => (
+                    <option key={genre?.id} value={genre?.id}>
+                      {genre?.name}
+                    </option>
+                  )
+                )}
               </select>
             </div>
-            
+
             <div className="mb-6">
               <label className="block text-gray-300 mb-2" htmlFor="content">
                 Текст блога
@@ -106,7 +80,7 @@ const WriteBlog = () => {
                 required
               ></textarea>
             </div>
-            
+
             <div className="mb-8">
               <label className="block text-gray-300 mb-2" htmlFor="image">
                 Картинка для блога (URL)
@@ -120,13 +94,19 @@ const WriteBlog = () => {
                 placeholder="Вставьте URL изображения..."
                 required
               />
+              {/* <ImageUpload avatar={newAvatar} setAvatar={setNewAvatar} /> */}
+
               {imageUrl && (
                 <div className="mt-2 h-40 overflow-hidden rounded">
-                  <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" />
+                  <img
+                    src={imageUrl}
+                    alt="Preview"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               )}
             </div>
-            
+
             <button type="submit" className="custom-button w-full">
               Опубликовать
             </button>

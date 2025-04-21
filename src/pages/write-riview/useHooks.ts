@@ -32,6 +32,9 @@ export default function useHooks() {
     (data: FormValues | any) => request.post(ENDPOINTS.REVIEWS, data),
     {
       onSuccess: (res) => {
+        setSelectedGame("");
+        setReview("");
+        setRating("");
         navigate(-1);
         toast.success("Рецензия успешно опубликована!");
       },
@@ -66,9 +69,7 @@ export default function useHooks() {
     });
 
     // Очистка формы после отправки
-    setSelectedGame("");
-    setReview("");
-    setRating("");
+
     const payload = {
       game_id: selectedGame,
       rate: rating,
